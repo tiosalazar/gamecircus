@@ -1,0 +1,12 @@
+{
+  "private": false,
+  "scripts": {
+    "start": "node ./packages/fbinstant-tictactoe-server/index.js",
+  },
+  "devDependencies": {
+    "lerna": "^2.4.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
