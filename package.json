@@ -3,6 +3,22 @@
   "scripts": {
     "start": "node ./packages/fbinstant-tictactoe-server/index.js"
   },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
+    "crypto-js": "^3.1.9-1",
+    "dotenv": "^5.0.1",
+    "express": "4.15.2",
+    "http": "0.0.0",
+    "pg": "6.x",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-webserver": "^0.9.1",
+    "gulp-zip": "^4.1.0",
+    "html2canvas": "^1.0.0-alpha.10",
+    "open": "^0.0.5",
+    "request": "^2.83.0"
+  },
   "devDependencies": {
     "lerna": "^2.4.0"
   },
