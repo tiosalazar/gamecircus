@@ -118,7 +118,9 @@ function upload(archivesFolder, filename) {
  gulp.task('mock', function() {
 
     browserSync.init({
-        server: "./"
+        server: "./",
+        files: ["./css/style.css", "./js/*.js","./index.html"],
+        port: 8000
     });
 
     gulp.src(LIB_FILES)
