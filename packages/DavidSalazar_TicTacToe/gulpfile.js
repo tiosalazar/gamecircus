@@ -134,21 +134,6 @@ function upload(archivesFolder, filename) {
           liveReload:true
       }));
 });
- /*
- gulp.task('mock', function() {
-    gulp.watch(LIB_FILES, function () {
-        gulp.src(LIB_FILES)
-        .pipe(gulp.dest('./js/lib/'));
-    });
-    gulp.watch('./', function () {
-      gulp.src('./')
-        .pipe(webserver({
-          open: true,
-          port: 8000,
-          liveReload:true
-      }));
-    }); 
-});*/
 /*
  * `gulp test`
  * Runs an SSL webserver with the game on https://localhost:8080
@@ -161,9 +146,11 @@ function upload(archivesFolder, filename) {
   make()
     .then(function() {
         gulp.src(BUILD_FOLDER)
+          .pipe(watch('./'))
           .pipe(webserver({
               https: true,
               port: 8000,
+              liveReload:true,
               open: 'https://www.facebook.com/embed/instantgames/'+config.FB_appId+'/player?game_url=https://localhost:8000'
           }));      
     })
@@ -172,7 +159,6 @@ function upload(archivesFolder, filename) {
     })
 
 });
-
 /*
  * `gulp push`
  * Compresses the game into a .zip archive and uploads it to the Developer website

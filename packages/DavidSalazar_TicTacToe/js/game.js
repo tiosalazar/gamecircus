@@ -1,7 +1,7 @@
 function gameplayScene(FBInstant, backendClient, html2canvas) {
-    this._cells = [[],[],[]];
+    this._cells = [[],[],[],[],[]];
     this._matchData = {};
-    this.SPRITES = ['love', 'like'];
+    this.SPRITES = ['perro', 'gato'];
     
     this.start = function() {
         this.makeGrid();
@@ -34,9 +34,9 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
         var table = document.createElement('table');
         var bgc = 1;
         table.className = "gamegrid";
-        for (var j=0; j<3; j++){
+        for (var j=0; j<5; j++){
             var rowEl = document.createElement('tr');
-            for (var k=0; k<3; k++) {
+            for (var k=0; k<5; k++) {
                 var cellEl = document.createElement('td');
                 cellEl.className = bgc ? "blue" : "grey";
                 bgc ^= 1;
@@ -62,8 +62,8 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
         }
         
         var playerIndex = this._matchData.players.indexOf(playerId);
-        for (var j=0; j<3; j++){
-            for (var k=0; k<3; k++) {
+        for (var j=0; j<5; j++){
+            for (var k=0; k<5; k++) {
                 var cell = this._cells[j][k];
                 cell._row = j;
                 cell._column = k;
@@ -90,7 +90,7 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
     this.createNewGameAsync = function() {
         var playerId = FBInstant.player.getID();
         this._matchData = {
-            'cells': [[-1,-1,-1],[-1,-1,-1],[-1,-1,-1]],
+            'cells': [[-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1]],
             'playerTurn': 0,
             'players': [
                 playerId
@@ -134,8 +134,8 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
     };
     
     this.disableAllCells = function() {
-        for (var j=0; j<3; j++){
-            for (var k=0; k<3; k++) {
+        for (var j=0; j<5; j++){
+            for (var k=0; k<5; k++) {
                 var cell = this._cells[j][k];
                 cell.onclick = null;
             }
@@ -249,7 +249,7 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
     
     this.isMatchWon = function() {
         function checkMatchAll(cells) {
-            return (cells[0] != -1) && (cells[0] == cells[1]) && (cells[1] == cells[2]);
+            return (cells[0] != -1) && (cells[0] == cells[1]) && (cells[1] == cells[2]) && (cells[2] == cells[3]);
         }
 
         var cells = this._matchData.cells;
@@ -257,22 +257,23 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
         var matchRow = 
             checkMatchAll(cells[0]) || 
             checkMatchAll(cells[1]) || 
-            checkMatchAll(cells[2]);
+            checkMatchAll(cells[2]) || 
+            checkMatchAll(cells[3]);
         var matchColumn = 
-            checkMatchAll([cells[0][0], cells[1][0], cells[2][0]]) ||
-            checkMatchAll([cells[0][1], cells[1][1], cells[2][1]]) ||
-            checkMatchAll([cells[0][2], cells[1][2], cells[2][2]]);
+            checkMatchAll([cells[0][0], cells[1][0], cells[2][0], cells[3][0]]) ||
+            checkMatchAll([cells[0][1], cells[1][1], cells[2][1], cells[3][1]]) ||
+            checkMatchAll([cells[0][2], cells[1][2], cells[2][2], cells[3][2]]);
         var matchAcross = 
-            checkMatchAll([cells[0][0], cells[1][1], cells[2][2]]) ||
-            checkMatchAll([cells[2][0], cells[1][1], cells[0][2]]);
+            checkMatchAll([cells[0][0], cells[1][1], cells[2][2], cells[3][3]]) ||
+            checkMatchAll([cells[4][0], cells[3][1], cells[2][2], cells[1][2]]);
         
         var won = matchRow || matchColumn || matchAcross;
         return won;
     };
     
     this.isBoardFull = function() {
-        for (var j=0; j<3; j++){
-            for (var k=0; k<3; k++) {
+        for (var j=0; j<5; j++){
+            for (var k=0; k<5; k++) {
                 if (this._matchData.cells[j][k] == -1) {
                     return false;
                 }
@@ -285,7 +286,7 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
         return new Promise(function(resolve, reject){
             var sceneRoot = document.getElementById('scene');
             var sceneWidth = sceneRoot.offsetWidth;
-            html2canvas(sceneRoot, {width:sceneWidth*3, x:-(sceneWidth)})
+            html2canvas(sceneRoot, {width:sceneWidth*5, x:-(sceneWidth)})
                 .then(function(canvas){
                     resolve(canvas.toDataURL("image/png"));
                 })
