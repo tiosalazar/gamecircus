@@ -199,7 +199,7 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
                 strategy: 'IMMEDIATE',
                 notification: 'NO_PUSH',
             };
-            
+            this.createNewGameAsync();
         } else if (isBoardFull) {
             // Game over, tie
             updateData =
@@ -220,6 +220,7 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
                 strategy: 'IMMEDIATE',
                 notification: 'NO_PUSH',
             };
+            this.createNewGameAsync();
         } else {
             // Next player's turn
             updateData =
@@ -258,10 +259,12 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
             checkMatchAll(cells[1]) || 
             checkMatchAll(cells[2]) || 
             checkMatchAll(cells[3]);
+
         var matchColumn = 
             checkMatchAll([cells[0][0], cells[1][0], cells[2][0], cells[3][0]]) ||
             checkMatchAll([cells[0][1], cells[1][1], cells[2][1], cells[3][1]]) ||
             checkMatchAll([cells[0][2], cells[1][2], cells[2][2], cells[3][2]]);
+
         var matchAcross = 
             checkMatchAll([cells[0][0], cells[1][1], cells[2][2], cells[3][3]]) ||
             checkMatchAll([cells[4][0], cells[3][1], cells[2][2], cells[1][2]]);
@@ -285,7 +288,7 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
         return new Promise(function(resolve, reject){
             var sceneRoot = document.getElementById('scene');
             var sceneWidth = sceneRoot.offsetWidth;
-            html2canvas(sceneRoot, {width:sceneWidth*5, x:-(sceneWidth)})
+            html2canvas(sceneRoot, {width:sceneWidth*3, x:-(sceneWidth)})
                 .then(function(canvas){
                     resolve(canvas.toDataURL("image/png"));
                 })
