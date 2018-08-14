@@ -8,7 +8,6 @@ function gameplayScene(FBInstant, backendClient, html2canvas) {
         var contextId = FBInstant.context.getID();
         FBInstant.player.getSignedPlayerInfoAsync(contextId)
         .then(function(signedPlayerInfo){
-            console.log('cLICL2',signedPlayerInfo);
             console.log(signedPlayerInfo.getSignature());
             return backendClient.load(signedPlayerInfo.getSignature());
         })

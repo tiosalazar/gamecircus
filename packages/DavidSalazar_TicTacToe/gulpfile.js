@@ -11,7 +11,7 @@ const open = require('open');
 const path = require('path');
 const uuid = require('uuid/v1');
 const config = require('./config.json');
-const SDK_PATH = 'https://connect.facebook.net/en_US/fbinstant.6.2.js'
+const SDK_PATH = 'https://connect.facebook.net/en_US/fbinstant.6.0.js'
 const BUILD_FOLDER = './build'
 const LIB_FILES = [
     './node_modules/html2canvas/dist/html2canvas.min.js'

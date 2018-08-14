@@ -102,8 +102,8 @@ var FBInstant = {
     },
     context : {
         getID: function() {
-            return 1234;
-            // return null;
+            //return 1234;
+             return null;
         },
         chooseAsync: function() {
             return new Promise(function(resolve, reject){

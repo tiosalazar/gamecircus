@@ -26,6 +26,8 @@ module.exports = function(app) {
     
     app.post('/get-match', function(request, response) {
         var signature = request.body.signature;
+        console.log('signature data', signature);
+        console.log('APP_SECRET data', process.env.APP_SECRET);
         
         var isValid = validate(signature);
         
